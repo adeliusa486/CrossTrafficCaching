@@ -71,6 +71,10 @@ class QLearningCache(BaseCache):
         self.total_inference_time = 0.0
         self.total_training_updates = 0
 
+        # Step-level memoization for urgency (see _raw_urgency).
+        self._last_t = -1.0
+        self._urgency_cache: dict[float, float] = {}
+
     def request(
         self,
         item_id: int,
@@ -168,8 +172,19 @@ class QLearningCache(BaseCache):
         return (u_norm, cnt / max_cnt)
 
     def _raw_urgency(self, item_location: float, vehicles: list[dict], t: float) -> float:
-        if not vehicles:
-            return 0.0
+        # Step-level memoization, matching SpatialUrgencyCache. Within a single
+        # simulation step the vehicle list is fixed, so urgency is a pure
+        # function of item_location; caching it leaves every returned value
+        # unchanged and only avoids recomputation. Without this the policy
+        # rescores the whole catalog from scratch on every miss, which dominates
+        # its runtime at the high miss rates it produces (Section 6.6).
+        if t != self._last_t:
+            self._last_t = t
+            self._urgency_cache.clear()
+        cached = self._urgency_cache.get(item_location)
+        if cached is not None:
+            return cached
+
         total_urgency = 0.0
         for veh in vehicles:
             d_t0 = abs(item_location - veh["x"])
@@ -181,6 +196,7 @@ class QLearningCache(BaseCache):
                 approaching_speed = max(speed, 1.0)
                 tau = d_pred / approaching_speed
                 total_urgency += math.exp(-self.alpha_d * tau)
+        self._urgency_cache[item_location] = total_urgency
         return total_urgency
 
     def _prune_request_window(self, current_time: float) -> None:

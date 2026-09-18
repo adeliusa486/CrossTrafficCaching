@@ -1,0 +1,425 @@
+{
+  "table1_controlled_tiers": {
+    "synthetic": {
+      "family": "Table 1 / synthetic",
+      "results": {
+        "LRU - LFU": {
+          "mean_a": 68.54603,
+          "mean_b": 53.25224999999999,
+          "mean_diff": 15.293780000000002,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 14.78221225,
+          "ci95_hi": 15.79335,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "FIFO - LFU": {
+          "mean_a": 71.10510000000001,
+          "mean_b": 53.25224999999999,
+          "mean_diff": 17.85285,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 17.4224685,
+          "ci95_hi": 18.29604675,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "Random - LFU": {
+          "mean_a": 71.33736000000002,
+          "mean_b": 53.25224999999999,
+          "mean_diff": 18.085110000000004,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 17.581473,
+          "ci95_hi": 18.643660750000002,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "Proximity - LFU": {
+          "mean_a": 79.30511000000001,
+          "mean_b": 53.25224999999999,
+          "mean_diff": 26.05286,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 25.370696000000002,
+          "ci95_hi": 26.718460749999995,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "SU - LFU": {
+          "mean_a": 55.57033,
+          "mean_b": 53.25224999999999,
+          "mean_diff": 2.3180799999999997,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 1.5804325000000004,
+          "ci95_hi": 2.993952249999998,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "EDC - LFU": {
+          "mean_a": 52.29415,
+          "mean_b": 53.25224999999999,
+          "mean_diff": -0.9580999999999996,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": -1.0,
+          "ci95_lo": -1.1575699999999984,
+          "ci95_hi": -0.7237600000000001,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "QLearning - LFU": {
+          "mean_a": 80.494,
+          "mean_b": 53.25224999999999,
+          "mean_diff": 27.241750000000003,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 25.247238750000005,
+          "ci95_hi": 28.985958000000004,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        }
+      }
+    },
+    "sumo": {
+      "family": "Table 1 / sumo",
+      "results": {
+        "LRU - LFU": {
+          "mean_a": 66.90088999999999,
+          "mean_b": 54.22264,
+          "mean_diff": 12.678249999999997,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 12.02554575,
+          "ci95_hi": 13.286822249999997,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "FIFO - LFU": {
+          "mean_a": 68.67491000000001,
+          "mean_b": 54.22264,
+          "mean_diff": 14.452270000000002,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 13.8429,
+          "ci95_hi": 15.053648250000002,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "Random - LFU": {
+          "mean_a": 70.74989,
+          "mean_b": 54.22264,
+          "mean_diff": 16.52725,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 15.91758325,
+          "ci95_hi": 17.119730249999996,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "Proximity - LFU": {
+          "mean_a": 78.06336,
+          "mean_b": 54.22264,
+          "mean_diff": 23.840719999999997,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 23.142726499999995,
+          "ci95_hi": 24.49395975,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "SU - LFU": {
+          "mean_a": 56.896370000000005,
+          "mean_b": 54.22264,
+          "mean_diff": 2.6737300000000013,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 1.9847427500000012,
+          "ci95_hi": 3.376170000000001,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "EDC - LFU": {
+          "mean_a": 54.282090000000004,
+          "mean_b": 54.22264,
+          "mean_diff": 0.05945000000000036,
+          "wilcoxon_stat": 27.0,
+          "p_raw": 1.0,
+          "rank_biserial": 0.01818181818181818,
+          "ci95_lo": -0.11961725000000012,
+          "ci95_hi": 0.2694740000000004,
+          "n_pairs": 10,
+          "p_holm": 1.0
+        },
+        "QLearning - LFU": {
+          "mean_a": 82.14795000000001,
+          "mean_b": 54.22264,
+          "mean_diff": 27.925310000000003,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 26.9685005,
+          "ci95_hi": 28.833539500000004,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        }
+      }
+    },
+    "real_ngsim": {
+      "family": "Table 1 / real_ngsim",
+      "results": {
+        "LRU - LFU": {
+          "mean_a": 69.07728999999999,
+          "mean_b": 52.924189999999996,
+          "mean_diff": 16.1531,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 15.48497,
+          "ci95_hi": 16.847952999999997,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "FIFO - LFU": {
+          "mean_a": 72.38851000000001,
+          "mean_b": 52.924189999999996,
+          "mean_diff": 19.464319999999997,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 18.964787750000003,
+          "ci95_hi": 19.986533249999997,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "Random - LFU": {
+          "mean_a": 72.36772,
+          "mean_b": 52.924189999999996,
+          "mean_diff": 19.44353,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 18.943130000000004,
+          "ci95_hi": 19.975342,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "Proximity - LFU": {
+          "mean_a": 80.43513999999999,
+          "mean_b": 52.924189999999996,
+          "mean_diff": 27.51095,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 26.756853250000006,
+          "ci95_hi": 28.210990000000002,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "SU - LFU": {
+          "mean_a": 54.39516999999999,
+          "mean_b": 52.924189999999996,
+          "mean_diff": 1.4709799999999995,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 0.9448412500000006,
+          "ci95_hi": 1.9936902499999996,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        },
+        "EDC - LFU": {
+          "mean_a": 52.66814000000001,
+          "mean_b": 52.924189999999996,
+          "mean_diff": -0.2560499999999998,
+          "wilcoxon_stat": 7.0,
+          "p_raw": 0.037109375,
+          "rank_biserial": -0.7454545454545455,
+          "ci95_lo": -0.44103024999999785,
+          "ci95_hi": -0.07671999999999883,
+          "n_pairs": 10,
+          "p_holm": 0.037109375
+        },
+        "QLearning - LFU": {
+          "mean_a": 81.46015000000001,
+          "mean_b": 52.924189999999996,
+          "mean_diff": 28.53596,
+          "wilcoxon_stat": 0.0,
+          "p_raw": 0.001953125,
+          "rank_biserial": 1.0,
+          "ci95_lo": 27.3182745,
+          "ci95_hi": 29.70978625,
+          "n_pairs": 10,
+          "p_holm": 0.013671875
+        }
+      }
+    }
+  },
+  "table2_config_ablation": {
+    "family": "Table 2 / config ablation (SU - LFU)",
+    "results": {
+      "C0_orig_10km": {
+        "mean_a": 52.17611999999999,
+        "mean_b": 52.90337000000001,
+        "mean_diff": -0.7272499999999994,
+        "wilcoxon_stat": 4.0,
+        "p_raw": 0.013671875,
+        "rank_biserial": -0.8545454545454545,
+        "ci95_lo": -1.156084499999999,
+        "ci95_hi": -0.3070799999999987,
+        "n_pairs": 10,
+        "p_holm": 0.068359375
+      },
+      "C1_unidirectional": {
+        "mean_a": 52.28787,
+        "mean_b": 52.90303,
+        "mean_diff": -0.6151599999999995,
+        "wilcoxon_stat": 9.0,
+        "p_raw": 0.064453125,
+        "rank_biserial": -0.6727272727272727,
+        "ci95_lo": -1.1273399999999985,
+        "ci95_hi": 0.02719600000000085,
+        "n_pairs": 10,
+        "p_holm": 0.12890625
+      },
+      "C2_dispersed_content": {
+        "mean_a": 58.39705999999999,
+        "mean_b": 59.75372000000001,
+        "mean_diff": -1.3566599999999993,
+        "wilcoxon_stat": 7.0,
+        "p_raw": 0.037109375,
+        "rank_biserial": -0.7454545454545455,
+        "ci95_lo": -2.5772442499999997,
+        "ci95_hi": -0.38283725000000024,
+        "n_pairs": 10,
+        "p_holm": 0.111328125
+      },
+      "C3_small_rrel": {
+        "mean_a": 73.48555999999999,
+        "mean_b": 73.29361,
+        "mean_diff": 0.19194999999999993,
+        "wilcoxon_stat": 21.0,
+        "p_raw": 0.556640625,
+        "rank_biserial": 0.23636363636363636,
+        "ci95_lo": -0.6196617500000002,
+        "ci95_hi": 0.879340000000002,
+        "n_pairs": 10,
+        "p_holm": 0.556640625
+      },
+      "C4_short_road": {
+        "mean_a": 54.33542,
+        "mean_b": 53.41458,
+        "mean_diff": 0.9208400000000004,
+        "wilcoxon_stat": 6.0,
+        "p_raw": 0.02734375,
+        "rank_biserial": 0.7818181818181819,
+        "ci95_lo": 0.24766174999999901,
+        "ci95_hi": 1.6830490000000007,
+        "n_pairs": 10,
+        "p_holm": 0.109375
+      },
+      "C5_realistic_slow": {
+        "mean_a": 55.57033,
+        "mean_b": 53.25224999999999,
+        "mean_diff": 2.3180799999999997,
+        "wilcoxon_stat": 0.0,
+        "p_raw": 0.001953125,
+        "rank_biserial": 1.0,
+        "ci95_lo": 1.5646562500000012,
+        "ci95_hi": 3.0186899999999985,
+        "n_pairs": 10,
+        "p_holm": 0.01171875
+      }
+    }
+  },
+  "table3_freeflow": {
+    "family": "Table 3 / free-flow US-101",
+    "results": {
+      "SU - LFU @ r=150 m": {
+        "mean_a": 57.24053,
+        "mean_b": 54.1096,
+        "mean_diff": 3.13093,
+        "wilcoxon_stat": 0.0,
+        "p_raw": 0.001953125,
+        "rank_biserial": 1.0,
+        "ci95_lo": 2.273686999999999,
+        "ci95_hi": 4.066120000000001,
+        "n_pairs": 10,
+        "p_holm": 0.01171875
+      },
+      "EDC - LFU @ r=150 m": {
+        "mean_a": 55.16431,
+        "mean_b": 54.1096,
+        "mean_diff": 1.05471,
+        "wilcoxon_stat": 0.0,
+        "p_raw": 0.001953125,
+        "rank_biserial": 1.0,
+        "ci95_lo": 0.8974099999999993,
+        "ci95_hi": 1.2204535000000019,
+        "n_pairs": 10,
+        "p_holm": 0.01171875
+      },
+      "SU - LFU @ r=350 m": {
+        "mean_a": 51.86522,
+        "mean_b": 50.34541,
+        "mean_diff": 1.5198099999999974,
+        "wilcoxon_stat": 0.0,
+        "p_raw": 0.001953125,
+        "rank_biserial": 1.0,
+        "ci95_lo": 1.028193749999996,
+        "ci95_hi": 1.9428602499999974,
+        "n_pairs": 10,
+        "p_holm": 0.01171875
+      },
+      "EDC - LFU @ r=350 m": {
+        "mean_a": 50.96674,
+        "mean_b": 50.34541,
+        "mean_diff": 0.6213299999999989,
+        "wilcoxon_stat": 1.0,
+        "p_raw": 0.00390625,
+        "rank_biserial": 0.9636363636363636,
+        "ci95_lo": 0.36334000000000016,
+        "ci95_hi": 0.8830829999999982,
+        "n_pairs": 10,
+        "p_holm": 0.01171875
+      },
+      "SU - LFU @ r=500 m": {
+        "mean_a": 50.34888,
+        "mean_b": 47.409530000000004,
+        "mean_diff": 2.9393499999999984,
+        "wilcoxon_stat": 0.0,
+        "p_raw": 0.001953125,
+        "rank_biserial": 1.0,
+        "ci95_lo": 2.021713749999998,
+        "ci95_hi": 3.843333249999996,
+        "n_pairs": 10,
+        "p_holm": 0.01171875
+      },
+      "EDC - LFU @ r=500 m": {
+        "mean_a": 47.7397,
+        "mean_b": 47.409530000000004,
+        "mean_diff": 0.3301700000000004,
+        "wilcoxon_stat": 6.0,
+        "p_raw": 0.02734375,
+        "rank_biserial": 0.7818181818181819,
+        "ci95_lo": 0.05718974999999995,
+        "ci95_hi": 0.7110864999999994,
+        "n_pairs": 10,
+        "p_holm": 0.02734375
+      }
+    }
+  }
+}

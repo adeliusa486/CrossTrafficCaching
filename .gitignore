@@ -48,8 +48,15 @@ coverage.xml
 Thumbs.db
 
 # Project-specific
-experiments/results/*.json
+#
+# Per-seed result files ARE the artifact behind every number in the paper and
+# are committed deliberately. Only large regenerable intermediates are ignored:
+# SUMO floating-car-output traces (~15 MB each) and cached replay windows, both
+# of which the runner scripts regenerate on demand.
 experiments/results/*.png
+experiments/results/*.pkl
+sumo/*fcd*.xml
+sumo/*fcd*.pkl
 data/raw/*
 data/processed/*
 !data/raw/.gitkeep
