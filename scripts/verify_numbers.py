@@ -36,7 +36,7 @@ def load(name):
 
 def series(tier, pol):
     """Per-seed series for a policy, tolerating the legacy SU key."""
-    for k in (pol, "TC_W0.2", "SU"):
+    for k in (pol, "TC_W0.2", "SU", "TrajectoryCache"):
         if k in tier and isinstance(tier[k], dict) and "per_seed" in tier[k]:
             return np.array(tier[k]["per_seed"], float)
     raise KeyError(pol)
@@ -256,6 +256,50 @@ def decimals_for(label):
         return 1
     return 2
 
+
+# ---------------- Section 5.5: Kendall tau across tiers ----------------
+# Added 2026-09-19 after an audit found the manuscript carried stale 7-policy
+# values. The tau must be computed over exactly the policies printed in Table 4.
+if mt and rn:
+    from scipy import stats as _st
+
+    _pols = ["LRU", "FIFO", "Random", "LFU", "Proximity", "SU", "EDC", "QLearning"]
+    _tiers = {"synthetic": mt["synthetic"], "sumo": mt["sumo"], "real": rn["policies"]}
+    _means = {k: [float(series(v, p).mean()) for p in _pols] for k, v in _tiers.items()}
+    for (_a, _b), _rep in ((("synthetic", "sumo"), 0.929),
+                           (("synthetic", "real"), 0.929),
+                           (("sumo", "real"), 0.857)):
+        checks.append((f"Sec5.5 kendall tau_b {_a}-{_b}", _rep,
+                       float(_st.kendalltau(_means[_a], _means[_b]).correlation)))
+    expect_in_tex("Sec5.5 tau synthetic-sumo", "$0.929$ for synthetic versus SUMO")
+    expect_in_tex("Sec5.5 tau sumo-real", "$0.857$ for SUMO versus real")
+    for _bad in ("$0.905$",):
+        if _have_tex and _bad in tex:
+            missing.append(("STALE KENDALL TAU STILL PRESENT", _bad))
+
+# ---------------- Section 5.1: original-configuration reproduction ----------------
+# Added 2026-09-19 after an audit found a one-sided p-value reported under a
+# two-sided protocol, and an EDC margin attributed to the wrong configuration.
+se10 = load("synthetic_edc_10seed.json")
+if se10:
+    from scipy import stats as _st2
+
+    _base = se10["alpha0.8"]["platoon"]
+    _su, _lfu, _edc = series(_base, "SU"), series(_base, "LFU"), series(_base, "EDC")
+    checks.append(("Sec5.1 base SU mean", 52.05, float(_su.mean())))
+    checks.append(("Sec5.1 base LFU mean", 52.85, float(_lfu.mean())))
+    checks.append(("Sec5.1 base SU-LFU margin", -0.80, float((_su - _lfu).mean())))
+    checks.append(("Sec5.1 base two-sided p", 0.084,
+                   float(_st2.wilcoxon(_su, _lfu).pvalue)))
+    checks.append(("Sec5.1 base EDC-LFU margin", -3.33, float((_edc - _lfu).mean())))
+    _d50 = se10["density_sweep_alpha0.8"]["50"]
+    checks.append(("Sec5.1 n=50 SU mean", 46.25, float(series(_d50, "SU").mean())))
+    checks.append(("Sec5.1 n=50 LFU mean", 53.27, float(series(_d50, "LFU").mean())))
+    checks.append(("Sec5.1 n=50 EDC mean", 42.11, float(series(_d50, "EDC").mean())))
+    checks.append(("Sec5.1 n=50 EDC-LFU margin", -11.16,
+                   float((series(_d50, "EDC") - series(_d50, "LFU")).mean())))
+    expect_in_tex("Sec5.1 two-sided p stated", "$p=0.084$")
+    expect_in_tex("Sec5.1 n=50 EDC corrected", "$11.16$")
 
 fails = []
 for label, rep, comp in checks:

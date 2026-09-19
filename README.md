@@ -233,18 +233,19 @@ set in each script.
 | --- | --- | --- | --- |
 | Table 4, Tiers 1 and 2 | `run_matched_tiers.py` | `matched_tiers_535m.json` | ~15 min |
 | Table 4, Tier 3 | `run_real_ngsim.py` | `real_ngsim_i80.json` | ~5 min |
-| Table 5, Figure 3 | `run_config_ablation.py` | `config_ablation.json` | ~20 min |
-| Table 6, Figure 4 | `run_radius_continuum.py` | `radius_continuum.json` | ~63 min |
-| Table 7, Figure 5 | `run_freeflow.py` | `real_freeflow.json` | ~10 min |
+| Table 5, Figure 4 | `run_config_ablation.py` | `config_ablation.json` | ~20 min |
+| Table 6, Figure 5 | `run_radius_continuum.py` | `radius_continuum.json` | ~63 min |
+| Table 7, Figure 6 | `run_freeflow.py` | `real_freeflow.json` | ~10 min |
 | Table 8 (Section 6.1) | `run_su_param_sensitivity.py` | `su_param_sensitivity.json` | ~9 min |
-| Table 9, Figure 6 (Section 6.2) | `run_zipf_sensitivity.py` | `zipf_sensitivity.json` | ~25 min |
+| Table 9, Figure 7 (Section 6.2) | `run_zipf_sensitivity.py` | `zipf_sensitivity.json` | ~25 min |
 | Table 10, capacity rows | `run_capacity_sweep.py` | `capacity_sweep.json` | ~2 h 30 min |
 | Table 10, catalog and zone rows | `run_catalog_scope.py` | `catalog_scope.json` | ~21 min |
-| Table 11, Figure 7 (Section 6.4) | `run_seed_extension.py` | `seed_extension.json` | ~7 min |
-| Table 12 (Section 6.5) | `run_rl_tuning.py` | `rl_tuning.json` | ~4 min |
-| Table 13 (Section 6.6) | `run_complexity_profile.py` | `complexity_profile.json` | ~3 min |
+| Supplementary S1 (Section 6.4) | `run_seed_extension.py` | `seed_extension.json` | ~7 min |
+| Supplementary S2 (Section 6.4) | `run_rl_tuning.py` | `rl_tuning.json` | ~4 min |
+| Supplementary S3 (Section 6.4) | `run_complexity_profile.py` | `complexity_profile.json` | ~3 min |
 | Supplementary factorial | `run_artifact_isolation.py` | `artifact_isolation.json` | ~15 min |
 | Figure 8, signal correlations | `measure_ngsim_correlation.py` | `ngsim_signal_correlation.json` | ~5 min |
+| Figure 3, miss rate by tier | `make_paper_figures.py` | reads stored results | seconds |
 
 ### Derived analyses
 
@@ -287,7 +288,7 @@ python scripts/verify_numbers.py
 ```
 
 ```text
-checked 128 reported values
+checked 140 reported values
 all reported values match the stored per-seed data
 ```
 
@@ -397,9 +398,20 @@ are used:
 | I-80 | 535 m | 28 km/h (congested) | 1972 | Table 4, Tier 3 |
 | US-101 free-flow | 669 m | 40.9 km/h | 2196 | Table 7, free-flow robustness |
 
-The raw CSV files are not committed because of their size. The adapter in
-`scripts/adapters/ngsim_adapter.py` converts them to the replay format, and the
-expected file paths are set at the top of each Tier 3 runner.
+The raw CSV files are not committed because of their size. Each window has a
+download script that applies the exact extraction bounds we used, so both
+recorded tiers are reproducible from a clean checkout:
+
+```bash
+python scripts/adapters/download_i80_window.py        # Table 4, Tier 3
+python scripts/adapters/download_us101_freeflow.py    # Table 7
+python scripts/adapters/checksums.py --verify         # confirm you got our data
+```
+
+`scripts/adapters/ngsim_provenance.json` records the source dataset, the
+`global_time` bounds, the row and vehicle counts and a SHA-256 checksum for
+each window. The adapter in `scripts/adapters/ngsim_adapter.py` converts a
+downloaded CSV to the replay format.
 
 **SUMO networks.** The `sumo/` directory contains the road networks used for
 Tier 2, including `highway535b.net.xml`, the 535 m segment with a downstream

@@ -1,0 +1,36 @@
+{
+  "ngsim_i80_win1.csv": {
+    "source_dataset": "https://data.transportation.gov/d/8ect-6jqj",
+    "location": "i-80",
+    "study_period": "1 (16:00-16:15 local, 13 April 2005)",
+    "global_time_lo": 1113433135300,
+    "global_time_hi": 1113434035300,
+    "span_s": 900.0,
+    "expected_rows": 1173116,
+    "expected_vehicles": 1972,
+    "segment_m": 535.2102072,
+    "mean_speed_kmh": 27.636188597695508,
+    "download_script": "scripts/adapters/download_i80_window.py",
+    "used_for": "Table 4, Tier 3 (recorded NGSIM)",
+    "rows": 1173116,
+    "vehicles": 1972,
+    "sha256": "0faf738d79d5c2cf795be898153282b6ce7213a5efbc67956df087a78a1bfb2e"
+  },
+  "ngsim_us101_freeflow.csv": {
+    "source_dataset": "https://data.transportation.gov/d/8ect-6jqj",
+    "location": "us-101",
+    "study_period": "0 (07:50-08:05 local, 15 June 2005, free-flow onset)",
+    "global_time_lo": 1118846979700,
+    "global_time_hi": 1118847903800,
+    "span_s": 924.1,
+    "expected_rows": 1188679,
+    "expected_vehicles": 2196,
+    "segment_m": 669.1768176,
+    "mean_speed_kmh": 40.86641509880778,
+    "download_script": "scripts/adapters/download_us101_freeflow.py",
+    "used_for": "Table 7, free-flow robustness",
+    "rows": 1188679,
+    "vehicles": 2196,
+    "sha256": "49d30cd254abef7f8749800b6adaa187600f1a1da8ad1d5d789a39823d17bbe5"
+  }
+}

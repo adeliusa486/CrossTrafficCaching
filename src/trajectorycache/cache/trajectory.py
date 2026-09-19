@@ -45,9 +45,19 @@ class SpatialUrgencyCache(BaseCache):
     alpha_d : float
         Urgency decay constant in s-1 controlling how steeply urgency falls
         off with increasing time-to-encounter.
-    r_rel : float
-        Relevance radius in metres. A vehicle's predicted position must fall
-        within this distance of an item's geographic location to contribute.
+    r_acc : float
+        Acceptance radius in metres (r_acc in the paper). A vehicle's predicted
+        position must fall within this distance of an item's geographic
+        location to contribute urgency to that item.
+
+        This is an INTERNAL parameter of the policy. It is a different quantity
+        from the scenario's forward request radius (r_rel in the paper, and
+        ``SimulationConfig.r_rel``), which decides which items a vehicle may
+        request at all. The two are distinct even though both are distances
+        along the road, and the relationship between them is what Sections 5.4
+        and 7 of the paper isolate. Passing ``r_rel=`` here still works and
+        means r_acc; it is a deprecated alias kept so that the scripts which
+        produced the published results run unchanged.
     """
 
     name: str = "SU"
@@ -59,18 +69,27 @@ class SpatialUrgencyCache(BaseCache):
         pop_window: float = 300.0,
         t_pred: float = 30.0,
         alpha_d: float = 0.1,
-        r_rel: float = 800.0,
+        r_acc: float | None = None,
+        r_rel: float | None = None,
     ) -> None:
         super().__init__(capacity)
 
         if not 0.0 <= urgency_weight <= 1.0:
             raise ValueError(f"urgency_weight must be in [0, 1]; got {urgency_weight}")
 
+        if r_acc is not None and r_rel is not None and r_acc != r_rel:
+            raise ValueError(
+                "pass either r_acc or its deprecated alias r_rel, not both with "
+                f"different values; got r_acc={r_acc}, r_rel={r_rel}"
+            )
+        if r_acc is None:
+            r_acc = 800.0 if r_rel is None else r_rel
+
         self.W = urgency_weight
         self.pop_window = pop_window
         self.t_pred = t_pred
         self.alpha_d = alpha_d
-        self.r_rel = r_rel
+        self.r_acc = r_acc
 
         # Popularity: {item_id -> deque of request timestamps}
         self._req_times: dict[int, deque] = defaultdict(deque)
@@ -247,7 +266,7 @@ class SpatialUrgencyCache(BaseCache):
     def _raw_urgency(self, item_loc: float, vehicles: list[dict], t: float) -> float:
         """
         U_raw(f) = Sum u(v, f)  for vehicles whose predicted position falls
-        within r_rel of item_loc.
+        within r_acc of item_loc.
 
         u(v, f) = 1 / (1 + alpha_d * TTE(v, f))
         TTE(v, f) = |l_f - x_v| / s_v
@@ -270,7 +289,7 @@ class SpatialUrgencyCache(BaseCache):
                 continue
 
             x_hat = x_v + speed * direction * self.t_pred
-            if abs(x_hat - item_loc) > self.r_rel:
+            if abs(x_hat - item_loc) > self.r_acc:
                 continue
 
             tte = abs(item_loc - x_v) / speed
