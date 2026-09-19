@@ -292,6 +292,23 @@ checked 140 reported values
 all reported values match the stored per-seed data
 ```
 
+To re-run a single cell from scratch and compare it against the committed
+per-seed file, which takes about a minute:
+
+```bash
+python scripts/reproduce_one_seed.py                # seed 84810
+python scripts/reproduce_one_seed.py --all-seeds    # all ten
+```
+
+**One known exception.** The `Random` baseline is excluded from the strict
+comparison. Its committed rows were produced before the eviction RNG was
+seeded, when `RandomCache` drew fresh entropy on construction and moved by
+about 0.17 pp between runs. The policy is seeded now, so new runs are
+reproducible, but they do not reproduce the pre-fix stored values. Every other
+policy matches exactly. Section 5.5 of the paper explains why this does not
+affect the reported ranking argument: FIFO and Random differ by 0.02 pp on the
+recorded tier, so the order of that pair is arbitrary either way.
+
 Reproducibility of a single cell can be checked directly. The following
 re-runs one cell of Table 4 from scratch and compares against the stored value:
 

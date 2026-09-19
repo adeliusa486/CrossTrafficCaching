@@ -71,13 +71,24 @@ class LFUCache(BaseCache):
 
 
 class RandomCache(BaseCache):
-    """Random eviction policy (seeded for reproducibility)."""
+    """
+    Random eviction policy.
+
+    The eviction RNG is seeded from ``seed``, which defaults to a fixed value
+    rather than to None. ``np.random.default_rng(None)`` draws fresh entropy on
+    every construction, which made this policy the one baseline in the suite
+    whose result could not be reproduced from a stored seed: repeated runs of
+    the same scenario seed moved the miss rate by about 0.17 pp. Callers that
+    want per-scenario variation should pass the scenario seed explicitly.
+    """
 
     name: str = "Random"
 
+    DEFAULT_SEED = 0
+
     def __init__(self, capacity: int, seed: int | None = None) -> None:
         super().__init__(capacity)
-        self._rng = np.random.default_rng(seed)
+        self._rng = np.random.default_rng(self.DEFAULT_SEED if seed is None else seed)
 
     def request(
         self,
