@@ -12,13 +12,14 @@ authors:
     family-names: Ahmad
     affiliation: "Islamic University of Madinah"
   - given-names: Ali
-    family-names: Akrma
+    family-names: Akarma
     affiliation: "Islamic University of Madinah; King Fahd University of Petroleum and Minerals"
-  - given-names: Touqeer Ali
+  - given-names: Toqeer Ali
     family-names: Syed
     affiliation: "Islamic University of Madinah"
 license: MIT
-repository-code: "https://github.com/adeliusa486/TrajectoryCache"
+repository-code: "https://github.com/adeliusa486/CrossTrafficCaching"
+doi: 10.5281/zenodo.22842056
 keywords:
   - vehicular edge caching
   - cache replacement
@@ -29,15 +30,14 @@ keywords:
 preferred-citation:
   type: article
   title: >-
-    A Controlled Cross-Traffic Evaluation of Vehicular Edge Caching:
-    Configuration Sensitivity of Spatial-Urgency Gains and a Robust
-    Tuning-Free Policy
+    Scenario Configuration Rather Than Mobility Model Fidelity Governs
+    Reported Spatial Urgency Gains in Vehicular Edge Caching
   authors:
     - given-names: Adeel
       family-names: Ahmad
     - given-names: Ali
-      family-names: Akrma
-    - given-names: Touqeer Ali
+      family-names: Akarma
+    - given-names: Toqeer Ali
       family-names: Syed
   year: 2026
-  notes: "Under review at Mobile Networks and Applications (Springer)."
+  notes: "Under review at Discover Telecommunications (Springer Nature)."

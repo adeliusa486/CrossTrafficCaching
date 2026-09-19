@@ -10,8 +10,8 @@ readme = "README.md"
 license = { text = "MIT" }
 authors = [
     { name = "Adeel Ahmad" },
-    { name = "Ali Akrma" },
-    { name = "Touqeer Ali Syed" },
+    { name = "Ali Akarma" },
+    { name = "Toqeer Ali Syed" },
 ]
 keywords = ["caching", "V2X", "MEC", "vehicular", "edge-computing"]
 classifiers = [

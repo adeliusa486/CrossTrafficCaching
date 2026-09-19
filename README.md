@@ -470,6 +470,25 @@ the artifact is clear without reading the paper.
 - Security, privacy and trust are not modelled. The harness assumes reported
   vehicle telemetry is authentic.
 
+---
+
+## Citation
+
+If you use this harness or its results, please cite the paper. Machine-readable
+metadata is in [`CITATION.cff`](CITATION.cff).
+
+```bibtex
+@article{ahmad2026crosstraffic,
+  author  = {Ahmad, Adeel and Akarma, Ali and Syed, Toqeer Ali},
+  title   = {Scenario Configuration Rather Than Mobility Model Fidelity Governs
+             Reported Spatial Urgency Gains in Vehicular Edge Caching},
+  journal = {Discover Telecommunications},
+  year    = {2026},
+  note    = {Under review. Artifact archived at doi:10.5281/zenodo.22842056}
+}
+```
+
+---
 
 ## License
 
