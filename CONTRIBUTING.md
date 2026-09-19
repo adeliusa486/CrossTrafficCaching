@@ -13,10 +13,10 @@ pre-commit install   # optional but recommended
 
 ## Branching Model
 
-- `main` — stable releases only
-- `develop` — integration branch, PRs target here
-- `feature/<name>` — new features
-- `fix/<name>` — bug fixes
+- `main`: stable releases only
+- `develop`: integration branch, PRs target here
+- `feature/<name>`: new features
+- `fix/<name>`: bug fixes
 
 ## Code Style
 

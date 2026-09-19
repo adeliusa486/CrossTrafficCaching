@@ -131,7 +131,7 @@ value in any figure is typed in by hand.
 ## Installation
 
 Python 3.10 or newer is required. SUMO is required only for the Tier 2
-experiments; Tiers 1 and 3 run without it.
+experiments. Tiers 1 and 3 run without it.
 
 ### Linux and macOS
 
@@ -169,7 +169,7 @@ pip install -r requirements-lock.txt
 ### Optional: SUMO for Tier 2
 
 Tier 2 requires [Eclipse SUMO](https://eclipse.dev/sumo/) 1.27 or compatible.
-The scripts expect the binary at the path set in each Tier 2 runner; edit
+The scripts expect the binary at the path set in each Tier 2 runner. Edit
 `SUMO_BIN` at the top of `scripts/run_matched_tiers.py` and
 `scripts/run_seed_extension.py` if your installation differs.
 
@@ -249,7 +249,7 @@ set in each script.
 
 ### Derived analyses
 
-These read the files above and compute statistics; they require no new
+These read the files above and compute statistics. They require no new
 simulation.
 
 | Analysis | Script | Output file |
@@ -271,7 +271,7 @@ python scripts/make_paper_figures.py
 ```
 
 The stored result files in `experiments/results/` are the ones behind the
-published numbers. Re-running a script overwrites its own output file; the
+published numbers. Re-running a script overwrites its own output file, and the
 committed results allow every figure and statistic to be regenerated without
 re-running the simulations.
 
@@ -331,8 +331,8 @@ All policies implement `BaseCache` and are constructed through
 | Random | `random` | `cache/baselines.py` | Uniform random eviction |
 | LFU | `lfu` | `cache/baselines.py` | Sliding-window least frequently used, the strong baseline |
 | ProximityCache | `proximity` | `cache/baselines.py` | Purely spatial, equivalent to blend weight W = 1 |
-| SpatialUrgencyCache (SU) | `su`, `trajectory` | `cache/trajectory.py` | Blend of spatial urgency and popularity; `trajectory` is a legacy alias |
-| ExpectedDemandCache (EDC) | `expected_demand` | `cache/expected_demand.py` | Product of windowed popularity and physical exposure; no blend weight |
+| SpatialUrgencyCache (SU) | `su`, `trajectory` | `cache/trajectory.py` | Blend of spatial urgency and popularity. `trajectory` is a legacy alias |
+| ExpectedDemandCache (EDC) | `expected_demand` | `cache/expected_demand.py` | Product of windowed popularity and physical exposure, no blend weight |
 | QLearningCache | `qlearning` | `cache/learned.py` | Online linear temporal-difference learner over [U(f), P(f), 1] |
 
 ### A note on QLearningCache
@@ -460,7 +460,7 @@ the artifact is clear without reading the paper.
 - Urban grids, turning movements and cross traffic are outside scope. The
   coincidence mechanism is stated for a one-dimensional corridor.
 - Demand is modelled rather than measured. The skew sweep addresses the shape of
-  the demand model but not its fidelity; measured request traces for these
+  the demand model but not its fidelity. Measured request traces for these
   segments would be required for that.
 - The SU deficit is bounded, not universal: it holds at cache-to-catalog ratios
   of 10 % and above and catalogs of 200 items and above, and reverses below.
