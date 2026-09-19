@@ -80,8 +80,28 @@ property of the traffic.
 
 ## Figures
 
-Regenerate all figures with `python scripts/make_paper_figures.py`. Each reads
-directly from the stored per-seed JSON files, so no number is hard-coded.
+### System model
+
+The roadside unit serves a 200-item geo-anchored catalog from a 20-item cache.
+A vehicle requests items lying ahead of it within the forward request radius
+`r_rel`, while the spatial-urgency policy scores items by how soon vehicles are
+predicted to reach them, accepting contributions within its own radius `r_acc`.
+Those two radii are distinct, and their relationship is what the paper isolates.
+
+![System model](docs/figures/fig_system_model.png)
+
+### Experimental design
+
+The demand model and the per-seed request streams are held fixed while the
+mobility source and the scenario configuration are varied independently. This
+is the property that makes the two factors separable after the fact.
+
+![Experimental design](docs/figures/fig_methodology.png)
+
+### Results
+
+Regenerate all result figures with `python scripts/make_paper_figures.py`. Each
+reads directly from the stored per-seed JSON files, so no number is hard-coded.
 
 **Miss rate by policy and mobility tier**
 
