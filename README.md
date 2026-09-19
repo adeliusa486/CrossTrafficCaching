@@ -80,6 +80,18 @@ property of the traffic.
 
 ## Figures
 
+Three figures are reproduced here. The rest of the manuscript's figures are in
+[`paper_figures/`](paper_figures/), and the result figures are all regenerated
+by `python scripts/make_paper_figures.py`.
+
+The two schematic figures keep their original artwork and carry their labels as
+live LaTeX text rather than baked-in pixels, so every label is selectable,
+searchable and sharp at any zoom. The sources are in
+[`paper_figures/tikz/`](paper_figures/tikz/): `gen_fig1.py` and `gen_fig2.py`
+declare where each label sits, `calibrate.py` measures the original lettering
+and solves for the point size that reproduces it, and the generated `.tex`
+files place the text over the artwork.
+
 ### System model
 
 The roadside unit serves a 200-item geo-anchored catalog from a 20-item cache.
@@ -98,30 +110,21 @@ is the property that makes the two factors separable after the fact.
 
 ![Experimental design](docs/figures/fig_methodology.png)
 
-### Results
+### Headline result
 
-Regenerate all result figures with `python scripts/make_paper_figures.py`. Each
-reads directly from the stored per-seed JSON files, so no number is hard-coded.
+Under the controlled configuration, LFU and EDC are the strongest policies on
+every mobility tier, SU sits just above LFU, and the ordering does not change
+as the traffic source moves from synthetic to SUMO to recorded NGSIM.
 
-**Miss rate by policy and mobility tier**
+This is a dot plot rather than a bar chart on purpose. The values occupy a
+52-82 % window, so a bar chart has to truncate its baseline, and truncated bars
+misstate ratios by area. Points carry no area, so the axis can start where the
+data starts.
 
 ![Miss rate by tier](docs/figures/fig_miss_by_tier.png)
 
-**Configuration ablation: the margin as one parameter changes at a time**
-
-![Ablation](docs/figures/fig_ablation_flip.png)
-
-**Request radius crossed with prediction horizon**
-
-![Radius continuum](docs/figures/fig_radius_continuum.png)
-
-**Demand-model sensitivity: margin against the Zipf skew**
-
-![Zipf sweep](docs/figures/fig_zipf.png)
-
-**Seed stability: each paired difference as seeds accumulate from 3 to 30**
-
-![Seed stability](docs/figures/fig_seed_stability.png)
+Every point is read from the stored per-seed JSON at figure build time. No
+value in any figure is typed in by hand.
 
 ---
 
@@ -376,7 +379,9 @@ CrossTrafficCaching/
 ├── sumo/                       # SUMO networks for Tier 2
 ├── configs/                    # YAML scenario and sweep configuration
 ├── tests/                      # unit, integration and determinism tests
-└── docs/figures/               # PNG renderings used in this README
+├── paper_figures/              # vector PDFs of every figure in the manuscript
+│   └── tikz/                   # label overlays for the two schematic figures
+└── docs/figures/               # PNG renderings shown in this README
 ```
 
 ---

@@ -77,10 +77,15 @@ plt.rcParams.update({
     "savefig.bbox": "tight",
     "savefig.pad_inches": 0.03,
 })
-C_SYNTH, C_SUMO, C_REAL = "#4C72B0", "#DD8452", "#55A868"
-C_WIN, C_LOSE = "#4C72B0", "#C44E52"
-C_POP, C_URG = "#55A868", "#C44E52"
-C_EDC = "#8172B3"
+# Palette shared with the TikZ schematic figures (tikz/tc-figstyle.tex).
+# Tier colours double as the categorical set; the pop/urgency pair is teal vs
+# orange rather than green vs red, which red-green colourblind readers cannot
+# separate.
+C_SYNTH, C_SUMO, C_REAL = "#4F8B8C", "#DB8264", "#85AD71"
+C_INK, C_GREY = "#16202E", "#8C8E8D"
+C_WIN, C_LOSE = "#4F8B8C", "#C86A48"
+C_POP, C_URG = "#4F8B8C", "#DB8264"
+C_EDC = "#7E6BA8"
 
 POLICY_ORDER = ["EDC", "LFU", "SU", "LRU", "FIFO", "Random", "Proximity", "QLearning"]
 JSON_NAME = {"SU": "TC_W0.2"}
@@ -95,6 +100,14 @@ def _get(pol_dict, disp):
 
 # ============================ Figure 1 ============================
 def fig_miss_by_tier():
+    """Cleveland dot plot of miss rate by policy and mobility tier.
+
+    Drawn as points rather than bars on purpose. The values occupy a 52-82 %
+    window, so a bar chart has to truncate its baseline, and truncated bars
+    misstate ratios by area. Points carry no area, so the axis can start where
+    the data starts, the policy names read horizontally instead of rotated,
+    and the agreement between the three tiers is legible row by row.
+    """
     mt = load("matched_tiers_535m.json")
     real_all = load("real_ngsim_i80.json")
     if mt is None or real_all is None:
@@ -111,39 +124,51 @@ def fig_miss_by_tier():
             means[tag].append(d["mean"])
             stds[tag].append(d["std"])
 
-    x = np.arange(len(POLICY_ORDER))
-    w = 0.26
-    fig, ax = plt.subplots(figsize=(7.4, 3.6))
-    for off, tag, col, lab in ((-w, "s", C_SYNTH, "Synthetic"),
-                               (0.0, "u", C_SUMO, "SUMO"),
-                               (w, "r", C_REAL, "Real (NGSIM I-80)")):
-        ax.bar(x + off, means[tag], w, yerr=stds[tag], capsize=2.5,
-               color=col, edgecolor="#222222", linewidth=0.4,
-               error_kw=dict(elinewidth=0.7, ecolor="#444444"), label=lab)
+    # best policy at the top
+    rows = np.arange(len(POLICY_ORDER))[::-1] + 1.0
+    off = 0.235
 
-    # Exact values for the three policies whose differences are small.
-    for i, p in enumerate(POLICY_ORDER):
-        if p not in ("EDC", "LFU", "SU"):
-            continue
-        for off, tag in ((-w, "s"), (0.0, "u"), (w, "r")):
-            v = means[tag][i]
-            ax.text(x[i] + off, v + stds[tag][i] + 0.5, f"{v:.1f}",
-                    ha="center", fontsize=7.2, rotation=90, color="#222222")
+    fig, ax = plt.subplots(figsize=(7.4, 3.5))
+
+    for r in rows[1::2]:
+        ax.axhspan(r - 0.5, r + 0.5, color="#F3F5F4", zorder=0, lw=0)
 
     lfu_ref = _get(synth, "LFU")["mean"]
-    ax.axhline(lfu_ref, ls="--", lw=0.9, color="#888888", zorder=0)
-    ax.text(len(x) - 0.4, lfu_ref - 2.4, "LFU (synthetic) reference",
-            fontsize=8, color="#666666", ha="right")
+    ax.axvline(lfu_ref, ls="--", lw=0.9, color=C_GREY, zorder=1)
+    ax.text(lfu_ref + 0.7, rows[0] + 0.62,
+            f"LFU (synthetic) reference, {lfu_ref:.1f}%",
+            fontsize=8.2, color="#5F676D", ha="left", va="center")
 
-    ax.set_xticks(x)
-    ax.set_xticklabels(POLICY_ORDER, rotation=20, ha="right")
-    ax.set_ylabel("Cache miss rate (%)")
-    ax.set_xlabel("Cache replacement policy")
-    ax.set_ylim(45, 92)
-    ax.set_title("Controlled configuration (535 m segment, forward request\n"
-                 "radius $r_{\\mathrm{rel}}=150$ m), 10 seeds; lower is better")
-    ax.legend(frameon=False, ncol=3, loc="upper left", handlelength=1.3,
-              columnspacing=1.3)
+    for dy, tag, col, mk, lab in ((off, "s", C_SYNTH, "o", "Tier 1 synthetic"),
+                                  (0.0, "u", C_SUMO, "s", "Tier 2 SUMO"),
+                                  (-off, "r", C_REAL, "^", "Tier 3 recorded NGSIM")):
+        ax.errorbar(means[tag], rows + dy, xerr=stds[tag],
+                    fmt=mk, ms=4.4, mfc=col, mec=C_INK, mew=0.5,
+                    ecolor=col, elinewidth=0.9, capsize=2.0, capthick=0.9,
+                    lw=0, label=lab, zorder=3)
+
+    su_row = rows[POLICY_ORDER.index("SU")]
+    ax.text(max(means["u"][POLICY_ORDER.index("SU")] + 2.0, 59.5), su_row,
+            "SU is worse than LFU on every tier", fontsize=8.2,
+            color=C_LOSE, ha="left", va="center")
+
+    ax.set_yticks(rows)
+    ax.set_yticklabels([("$\\bf{LFU}$" if p == "LFU" else
+                         ("SU ($W=0.2$)" if p == "SU" else p))
+                        for p in POLICY_ORDER])
+    ax.set_xlim(49.5, 85.5)
+    ax.set_ylim(0.42, rows[0] + 0.95)
+    ax.set_xlabel("Cache miss rate (%), lower is better")
+    ax.grid(axis="x", ls=(0, (1.6, 2.2)), color="#BEC2C4", lw=0.6)
+    ax.grid(axis="y", visible=False)
+    ax.tick_params(axis="y", length=0)
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+    ax.set_title("Markers are means over 10 seeds. "
+                 "Bars span $\\pm1$ standard deviation.",
+                 fontsize=8.6, color="#5F676D", pad=5)
+    ax.legend(frameon=False, ncol=3, loc="lower center",
+              bbox_to_anchor=(0.5, 1.10), handlelength=1.0, columnspacing=2.2)
     fig.savefig(os.path.join(OUT, "fig_miss_by_tier.pdf"))
     plt.close(fig)
     print(f"fig_miss_by_tier.pdf  (LFU synth mean = {lfu_ref:.2f})")
@@ -278,12 +303,14 @@ def fig_freeflow():
     ax.set_xticklabels([f"{r} m" for r in radii])
     ax.set_xlabel("Forward request radius $r_{\\mathrm{rel}}$ (m)")
     ax.set_ylabel("Miss-rate margin vs LFU\n(percentage points)")
-    ax.set_ylim(min(0, min(edc_m)) - 0.6, max(su_m) + 1.5)
-    ax.text(0.02, 0.96, "above 0 = worse than LFU", transform=ax.transAxes,
-            fontsize=8.5, color="#C44E52", va="top", style="italic")
+    # headroom for the value labels, the note and the legend, in that order
+    ax.set_ylim(min(0, min(edc_m)) - 0.6, max(su_m) + 3.4)
+    ax.text(0.02, 0.02, "above 0 = worse than LFU", transform=ax.transAxes,
+            fontsize=8.5, color=C_LOSE, va="bottom", ha="left", style="italic")
     ax.set_title("Free-flow real traffic (US-101, 41 km/h, 10 seeds)\n"
                  "error bars: bootstrap 95 % CI")
-    ax.legend(frameon=False, loc="upper right")
+    # the extra ylim headroom above keeps this clear of the value labels
+    ax.legend(frameon=False, loc="upper right", handlelength=1.2)
     fig.savefig(os.path.join(OUT, "fig_freeflow.pdf"))
     plt.close(fig)
     print("fig_freeflow.pdf  SU-LFU = " + ", ".join(f"{m:.2f}" for m in su_m))
@@ -366,12 +393,14 @@ def fig_zipf():
                 capsize=3, color=C_EDC, label="EDC $-$ LFU")
     ax.axhline(0, color="#333", lw=1.1)
     ax.axvline(0.8, ls="--", lw=1.0, color="#888")
-    for a, m in zip(alphas, su_m):
-        ax.text(a, m + 0.55, f"{m:+.2f}", ha="center", fontsize=8.2,
-                color=C_LOSE)
-    ax.set_ylim(min(edc_m) - 1.1, max(su_m) + 1.6)
-    ax.text(0.78, min(edc_m) - 0.75, "value used in the main text",
-            fontsize=8.2, color="#666", ha="right")
+    # offset each label away from its own error bar, and away from the
+    # alpha = 0.8 reference line
+    for a, m, hi in zip(alphas, su_m, su_hi):
+        ax.annotate(f"{m:+.2f}", (a, m + hi), textcoords="offset points",
+                    xytext=(0, 7), ha="center", fontsize=8.2, color=C_LOSE)
+    ax.set_ylim(min(edc_m) - 1.4, max(su_m) + max(su_hi) + 1.9)
+    ax.text(0.76, min(edc_m) - 1.05, "value used in the main text",
+            fontsize=8.2, color="#5F676D", ha="right")
     ax.set_xlabel("Zipf skew $\\alpha$ of the content popularity law")
     ax.set_ylabel("Miss-rate margin vs LFU\n(percentage points)")
     ax.set_title("Demand-model sensitivity (synthetic tier, 10 seeds)\n"

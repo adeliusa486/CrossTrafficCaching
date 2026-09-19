@@ -1,0 +1,103 @@
+%% ===================================================================
+%% Figure 2 - The two-factor experimental design.
+%%
+%% The artwork is the original raster, used exactly as drawn. Only the
+%% lettering is replaced: each block of baked-in text is covered with an
+%% opaque patch and the same words are set in LaTeX on top, so the labels
+%% are live vector text while every icon stays as it was.
+%%
+%% Point sizes are measured, not guessed: calibrate.py reads the ink box of
+%% each original label and solves for the size that reproduces its width.
+%%
+%%   python calibrate.py gen_fig2 && python gen_fig2.py
+%%   pdflatex fig_methodology_tikz.tex
+%%
+%% Canvas is 160 x 83.50 mm, the source PNG at \textwidth of sn-jnl.
+%% Generated file - edit gen_fig2.py, not this.
+%% ===================================================================
+\documentclass[border=0pt,varwidth=false]{standalone}
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage[scaled=0.95]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{newtxsf}
+\usepackage{anyfontsize}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+\definecolor{cInk}{HTML}{111111}
+\definecolor{cGreen}{HTML}{4F9A48}
+\definecolor{cTeal}{HTML}{1A7B7C}
+\definecolor{cOrange}{HTML}{D4832F}
+\definecolor{cGrey}{HTML}{47494C}
+
+\begin{document}
+\begin{tikzpicture}[x=1mm,y=1mm]
+\useasboundingbox (0,0) rectangle (160,83.50);
+\node[anchor=south west,inner sep=0pt] at (0,0)
+  {\includegraphics[width=160mm]{fig_methodology.png}};
+
+% --- cover the baked-in lettering ---
+\fill[white] (0.00,80.35) rectangle (29.14,83.50);
+\fill[white] (38.47,80.35) rectangle (110.62,83.50);
+\fill[white] (118.94,80.35) rectangle (160.00,83.50);
+\fill[white] (9.59,72.27) rectangle (18.67,75.55);
+\fill[white] (2.77,55.81) rectangle (25.35,59.79);
+\fill[white] (7.06,52.16) rectangle (21.06,55.75);
+\fill[white] (7.95,35.19) rectangle (20.06,38.98);
+\fill[white] (3.53,31.91) rectangle (24.34,35.82);
+\fill[white] (8.32,28.44) rectangle (19.30,31.91);
+\fill[white] (6.56,13.31) rectangle (21.06,17.28);
+\fill[white] (57.14,72.02) rectangle (92.83,75.68);
+\fill[white] (39.10,51.46) rectangle (64.08,55.44);
+\fill[white] (69.94,51.46) rectangle (79.72,55.44);
+\fill[white] (86.40,51.27) rectangle (109.67,55.25);
+\fill[white] (63.19,41.75) rectangle (92.90,45.28);
+\fill[white] (50.96,32.23) rectangle (99.33,35.95);
+\fill[white] (60.17,23.52) rectangle (92.27,27.50);
+\fill[white] (72.91,19.55) rectangle (78.96,23.21);
+\fill[white] (64.77,13.31) rectangle (86.91,17.15);
+\fill[white] (87.54,15.89) rectangle (100.28,19.17);
+\fill[white] (87.16,12.74) rectangle (101.16,15.89);
+\fill[white] (126.13,41.37) rectangle (134.96,45.41);
+\fill[white] (119.70,37.46) rectangle (139.25,42.00);
+\fill[white] (122.98,34.56) rectangle (138.49,38.66);
+\fill[white] (119.39,30.84) rectangle (141.84,34.43);
+\fill[white] (146.31,41.37) rectangle (160.00,45.41);
+\fill[white] (146.06,38.03) rectangle (160.00,42.25);
+\fill[white] (6.31,0.00) rectangle (153.76,3.78);
+
+% --- the same words, set in LaTeX at the original size ---
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (0.19,82.30) {\fontsize{7.54}{8.90}\selectfont LEFT --- FIXED INPUTS};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (74.61,82.21) {\fontsize{7.63}{9.00}\selectfont MIDDLE --- TWO INDEPENDENT EXPERIMENTAL FACTORS};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (139.88,82.27) {\fontsize{7.67}{9.05}\selectfont RIGHT --- COMMON EVALUATION};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cGreen] at (13.81,73.95) {\fontsize{7.95}{9.38}\selectfont\bfseries FIXED};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (13.75,57.99) {\fontsize{8.86}{10.45}\selectfont Demand model};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (13.65,54.08) {\fontsize{6.79}{8.01}\selectfont Zipf $\alpha=0.8$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (13.72,37.43) {\fontsize{8.34}{9.84}\selectfont Per-seed};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (13.65,33.36) {\fontsize{8.75}{10.32}\selectfont request stream};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (13.69,30.02) {\fontsize{7.52}{8.87}\selectfont identical};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (13.69,15.61) {\fontsize{8.72}{10.29}\selectfont Held fixed};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cTeal] at (74.86,73.95) {\fontsize{7.82}{9.23}\selectfont MOBILITY SOURCE VARIED};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (51.46,53.01) {\fontsize{9.06}{10.69}\selectfont Synthetic platoon};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (74.73,53.23) {\fontsize{7.93}{9.36}\selectfont SUMO};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (97.85,53.23) {\fontsize{8.21}{9.69}\selectfont Recorded NGSIM};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cGrey] at (78.23,43.58) {\fontsize{6.91}{8.15}\selectfont INDEPENDENTLY VARIED};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cOrange] at (74.99,33.68) {\fontsize{7.90}{9.32}\selectfont SCENARIO CONFIGURATION VARIED};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (75.87,25.16) {\fontsize{8.87}{10.47}\selectfont Forward request radius};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (75.74,21.13) {\fontsize{11.02}{13.00}\selectfont $r_{\mathrm{rel}}$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (75.77,14.88) {\fontsize{8.81}{10.40}\selectfont $150$ m $\leftrightarrow$ $800$ m};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cOrange] at (88.04,17.47) {\fontsize{7.07}{8.34}\selectfont scenario};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cOrange] at (88.10,14.38) {\fontsize{7.35}{8.67}\selectfont parameter};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (130.39,43.58) {\fontsize{8.60}{10.15}\selectfont Same};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (130.52,39.39) {\fontsize{9.01}{10.63}\selectfont cache-policy};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (130.93,36.77) {\fontsize{9.81}{11.58}\selectfont evaluation};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (130.52,32.32) {\fontsize{7.03}{8.30}\selectfont paired across seeds};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (153.47,43.26) {\fontsize{8.68}{10.24}\selectfont Compare};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (153.47,40.49) {\fontsize{8.93}{10.54}\selectfont outcomes};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (79.91,1.55) {\fontsize{7.73}{9.12}\selectfont Demand and per-seed request streams are held fixed while mobility source and scenario configuration are varied independently.};
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,161 @@
+%% ===================================================================
+%% Figure 1 - System model and the SU cache replacement pipeline.
+%%
+%% The artwork is the original raster, used exactly as drawn. Only the
+%% lettering is replaced: each block of baked-in text is covered with an
+%% opaque patch and the same words are set in LaTeX on top, so the labels
+%% are live vector text (selectable, searchable, sharp at any zoom) while
+%% every icon stays exactly as it was.
+%%
+%% Point sizes are measured, not guessed: calibrate.py reads the ink box of
+%% each original label and solves for the size that reproduces its width.
+%%
+%%   python calibrate.py && python gen_fig1.py && pdflatex fig_system_model_tikz
+%%
+%% Canvas is 160 x 84.52 mm, the source PNG at \textwidth of sn-jnl, so
+%% \includegraphics[width=\textwidth]{...} places it 1:1.
+%% Generated file - edit gen_fig1.py, not this.
+%% ===================================================================
+\documentclass[border=0pt,varwidth=false]{standalone}
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage[scaled=0.95]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{newtxsf}
+\usepackage{anyfontsize}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+\definecolor{cInk}{HTML}{16202E}
+\definecolor{cGreyD}{HTML}{5F676D}
+\definecolor{cPanelA}{HTML}{F0F1F3}
+\definecolor{cPanelB}{HTML}{E9EAEC}
+\definecolor{cPanelC}{HTML}{EAEBED}
+
+\begin{document}
+\begin{tikzpicture}[x=1mm,y=1mm]
+\useasboundingbox (0,0) rectangle (160,84.52);
+\node[anchor=south west,inner sep=0pt] at (0,0)
+  {\includegraphics[width=160mm]{fig_system_model.png}};
+
+% --- cover the baked-in lettering ---
+\fill[white] (1.22,79.02) rectangle (158.78,84.52);
+\fill[white] (14.53,72.12) rectangle (25.65,75.05);
+\fill[white] (54.53,72.12) rectangle (64.61,75.05);
+\fill[white] (80.00,71.94) rectangle (121.22,74.93);
+\fill[white] (131.42,71.94) rectangle (155.42,74.93);
+\fill[white] (13.31,66.32) rectangle (31.02,69.68);
+\fill[white] (13.13,63.76) rectangle (41.40,66.63);
+\fill[white] (13.13,60.52) rectangle (29.19,64.00);
+\fill[white] (18.81,56.31) rectangle (37.86,58.99);
+\fill[white] (58.50,56.06) rectangle (74.20,58.87);
+\fill[white] (58.32,48.37) rectangle (69.13,51.30);
+\fill[white] (58.32,45.86) rectangle (73.53,48.73);
+\fill[white] (47.51,45.25) rectangle (52.52,48.18);
+\fill[white] (83.66,64.49) rectangle (103.21,67.60);
+\fill[white] (83.79,60.09) rectangle (90.26,63.27);
+\fill[white] (83.30,53.62) rectangle (107.73,57.77);
+\fill[white] (83.79,50.26) rectangle (87.94,53.50);
+\fill[white] (83.54,44.95) rectangle (107.79,48.12);
+\fill[white] (83.18,37.25) rectangle (111.15,44.46);
+\fill[white] (83.24,32.24) rectangle (109.56,35.79);
+\fill[white] (83.18,29.07) rectangle (107.60,32.49);
+\fill[white] (83.18,20.52) rectangle (121.65,28.34);
+\fill[white] (108.46,27.11) rectangle (124.82,38.72);
+\fill[white] (83.18,13.68) rectangle (116.82,17.34);
+\fill[white] (83.05,10.87) rectangle (119.15,13.80);
+\fill[white] (94.66,1.95) rectangle (107.05,4.95);
+\fill[white] (92.46,0.00) rectangle (109.19,2.87);
+\fill[white] (30.17,38.84) rectangle (59.36,42.08);
+\fill[white] (32.61,35.18) rectangle (56.43,38.11);
+\fill[white] (24.61,30.41) rectangle (65.34,34.26);
+\fill[white] (16.98,8.85) rectangle (28.95,12.09);
+\fill[white] (14.53,6.11) rectangle (31.27,9.16);
+\fill[white] (18.02,3.36) rectangle (27.60,6.47);
+\fill[white] (43.85,8.37) rectangle (69.62,11.85);
+\fill[white] (43.24,4.27) rectangle (70.11,9.40);
+\fill[white] (46.78,1.28) rectangle (59.85,4.64);
+\fill[white] (124.21,58.99) rectangle (160.00,62.41);
+\fill[white] (150.53,56.31) rectangle (160.00,59.48);
+\fill[white] (123.73,42.14) rectangle (129.59,45.44);
+\fill[white] (124.21,28.95) rectangle (129.47,32.49);
+\fill[white] (136.55,51.91) rectangle (156.58,54.60);
+\fill[white] (141.92,49.71) rectangle (151.27,52.40);
+\fill[white] (138.20,46.66) rectangle (154.93,49.83);
+\fill[white] (128.12,31.39) rectangle (140.95,34.56);
+\fill[white] (129.47,29.19) rectangle (140.95,32.37);
+\fill[white] (146.93,24.98) rectangle (152.79,28.27);
+\fill[white] (138.20,22.53) rectangle (146.08,25.83);
+\fill[white] (146.93,22.53) rectangle (156.95,26.08);
+\fill[white] (151.76,18.81) rectangle (158.90,22.05);
+\fill[white] (152.49,16.73) rectangle (158.41,19.91);
+\fill[white] (136.73,0.00) rectangle (156.95,3.42);
+\begin{scope}
+\clip (138.26,11.24) -- (147.18,18.69) -- (156.15,11.24) -- (147.18,3.79) -- cycle;
+\fill[cPanelA] (139.97,12.95) rectangle (154.02,15.88);
+\fill[cPanelB] (139.73,10.87) rectangle (154.63,13.19);
+\fill[cPanelB] (139.48,8.55) rectangle (154.87,10.99);
+\fill[cPanelC] (142.29,6.23) rectangle (152.06,8.79);
+\end{scope}
+
+% --- the same words, set in LaTeX at the original size ---
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (79.82,81.77) {\fontsize{15.39}{18.16}\selectfont\bfseries System Model and Spatial-Urgency Cache Replacement Pipeline};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cGreyD] at (20.03,73.31) {\fontsize{6.11}{7.21}\selectfont NETWORK};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cGreyD] at (59.51,73.31) {\fontsize{6.20}{7.32}\selectfont DEMAND};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cGreyD] at (100.55,73.19) {\fontsize{6.34}{7.48}\selectfont SPATIAL-URGENCY (SU) COMPUTATION};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cGreyD] at (143.54,73.31) {\fontsize{6.21}{7.33}\selectfont CACHE REPLACEMENT};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (13.50,67.76) {\fontsize{7.08}{8.35}\selectfont\bfseries Content Server};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (13.68,65.13) {\fontsize{6.30}{7.43}\selectfont $N=200$ geo-anchored items};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (13.74,62.41) {\fontsize{6.01}{7.09}\selectfont $F=\{f_1,\dots,f_N\}$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (28.52,57.53) {\fontsize{6.30}{7.43}\selectfont Backhaul (on miss)};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (58.69,57.22) {\fontsize{5.95}{7.02}\selectfont RSU edge cache};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (58.56,49.65) {\fontsize{6.30}{7.43}\selectfont $C_{\max}=20$};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (59.05,47.42) {\fontsize{5.63}{6.64}\selectfont (10\% of catalog)};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (50.23,46.75) {\fontsize{5.98}{7.06}\selectfont RSU};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (84.46,66.08) {\fontsize{7.71}{9.10}\selectfont\bfseries Relevant items};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (84.34,61.56) {\fontsize{5.92}{6.99}\selectfont $A_v(t)$};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (84.15,55.42) {\fontsize{7.65}{9.03}\selectfont\bfseries Predicted position};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (84.09,52.06) {\fontsize{6.77}{7.99}\selectfont $\hat{x}_v$};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (84.03,46.44) {\fontsize{7.85}{9.26}\selectfont\bfseries Time-to-encounter};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (84.27,40.79) {\fontsize{6.58}{7.76}\selectfont $\mathrm{TTE}(v,f)=\dfrac{|\ell_f-x_v(t)|}{\max(s_v(t),\varepsilon_s)}$};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (84.09,33.89) {\fontsize{7.59}{8.96}\selectfont\bfseries Spatial urgency $U(f)$};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (84.09,30.84) {\fontsize{6.27}{7.40}\selectfont max-normalized $U_{\mathrm{raw}}(f)$};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (84.27,24.55) {\fontsize{6.29}{7.42}\selectfont $U_{\mathrm{raw}}(f)=\displaystyle\sum_{v:\,|\hat{x}_v-\ell_f|\le r_{\mathrm{acc}}}\dfrac{1}{1+\alpha_d\mathrm{TTE}(v,f)}$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (116.64,32.92) {\fontsize{4.67}{5.51}\selectfont \begin{tabular}{@{}c@{}}SU acceptance radius:\\[0.15ex] $r_{\mathrm{acc}}=800$ m\\[0.35ex]Forward request radius:\\[0.15ex] $r_{\mathrm{rel}}=150\,/\,800$ m\\[0.35ex]$r_{\mathrm{rel}}\neq r_{\mathrm{acc}}$\end{tabular}};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (84.03,15.30) {\fontsize{7.84}{9.25}\selectfont\bfseries Windowed popularity $P(f)$};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (83.85,12.58) {\fontsize{5.59}{6.60}\selectfont from request counts in the trailing window};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (100.85,3.24) {\fontsize{7.30}{8.61}\selectfont $\Delta T=300$ s};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (100.67,1.62) {\fontsize{6.09}{7.19}\selectfont with time window};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (44.46,40.37) {\fontsize{7.02}{8.28}\selectfont Forward request radius $r_{\mathrm{rel}}$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (44.52,36.76) {\fontsize{6.26}{7.39}\selectfont scenario-side relevance};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (44.95,32.24) {\fontsize{6.25}{7.38}\selectfont $A_v(t)=\{f\in F: 0<(\ell_f-x_v(t))d_v\le r_{\mathrm{rel}}\}$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (22.69,10.63) {\fontsize{7.27}{8.58}\selectfont\bfseries Vehicle $v$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (22.56,7.48) {\fontsize{5.71}{6.74}\selectfont $x_v(t),\,s_v(t),\,d_v(t)$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (23.05,5.19) {\fontsize{7.35}{8.67}\selectfont $\Delta t=1$ s};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (56.24,9.68) {\fontsize{7.31}{8.63}\selectfont\bfseries Predicted position $\hat{x}_v$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (56.27,6.87) {\fontsize{6.47}{7.63}\selectfont $\hat{x}_v=x_v(t)+s_v(t)\,d_v T_{\mathrm{pred}}$};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (46.78,2.56) {\fontsize{7.08}{8.35}\selectfont $T_{\mathrm{pred}}=30$ s};
+\node[anchor=east,inner sep=0pt,outer sep=0pt,text=cInk] at (159.94,60.49) {\fontsize{6.17}{7.28}\selectfont $\mathrm{Score}(f)=W\cdot U(f)+(1-W)\cdot P(f)$};
+\node[anchor=east,inner sep=0pt,outer sep=0pt,text=cInk] at (160.00,58.20) {\fontsize{5.97}{7.04}\selectfont $W=0.2$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (126.66,43.60) {\fontsize{5.77}{6.81}\selectfont $U(f)$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (126.78,30.75) {\fontsize{6.44}{7.60}\selectfont $P(f)$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (146.78,53.04) {\fontsize{5.04}{5.95}\selectfont\bfseries CACHE REPLACEMENT};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (146.72,51.36) {\fontsize{4.96}{5.85}\selectfont\bfseries DECISION};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (146.75,48.12) {\fontsize{5.89}{6.95}\selectfont RSU Edge Cache};
+\node[anchor=east,inner sep=0pt,outer sep=0pt,text=cInk] at (140.95,32.70) {\fontsize{6.02}{7.10}\selectfont lowest-scoring};
+\node[anchor=east,inner sep=0pt,outer sep=0pt,text=cInk] at (140.21,31.33) {\fontsize{5.43}{6.41}\selectfont cached item};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (147.60,26.38) {\fontsize{6.50}{7.67}\selectfont Evict};
+\node[anchor=east,inner sep=0pt,outer sep=0pt,text=cInk] at (146.08,24.00) {\fontsize{6.75}{7.96}\selectfont arg\,min};
+\node[anchor=west,inner sep=0pt,outer sep=0pt,text=cInk] at (147.48,24.40) {\fontsize{6.15}{7.26}\selectfont $\mathrm{Score}(f)$};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (155.39,20.15) {\fontsize{5.28}{6.23}\selectfont Update};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (155.48,18.81) {\fontsize{5.90}{6.96}\selectfont cache};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (146.99,14.41) {\fontsize{6.31}{7.45}\selectfont evict only if};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (147.18,12.03) {\fontsize{6.31}{7.45}\selectfont incoming score};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (147.18,9.77) {\fontsize{6.31}{7.45}\selectfont $>$ lowest cached};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (147.18,7.51) {\fontsize{6.31}{7.45}\selectfont score?};
+\node[anchor=center,inner sep=0pt,outer sep=0pt,text=cInk] at (146.72,1.53) {\fontsize{6.31}{7.45}\selectfont (Admission Control)};
+
+\end{tikzpicture}
+\end{document}
