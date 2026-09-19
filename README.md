@@ -470,25 +470,6 @@ the artifact is clear without reading the paper.
 - Security, privacy and trust are not modelled. The harness assumes reported
   vehicle telemetry is authentic.
 
----
-
-## Citation
-
-If you use this harness or its results, please cite the paper. Machine-readable
-metadata is in [`CITATION.cff`](CITATION.cff).
-
-```bibtex
-@article{ahmad2026crosstraffic,
-  author  = {Ahmad, Adeel and Akrma, Ali and Syed, Touqeer Ali},
-  title   = {Request Radius Rather Than Mobility Model Fidelity Controls the
-             Reported Gains of Spatial Urgency Policies in Vehicular Edge Caching},
-  journal = {Discover Telecommunications},
-  year    = {2026},
-  note    = {Under review}
-}
-```
-
----
 
 ## License
 
