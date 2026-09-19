@@ -70,7 +70,17 @@ def crossref(doi: str) -> dict:
 
 
 def arxiv(aid: str) -> dict:
-    xml = get("https://export.arxiv.org/api/query?id_list=" + urllib.parse.quote(aid)).decode()
+    # The arXiv API returns 406 when queried too quickly. Back off and retry
+    # rather than reporting a transient rate limit as a bad reference.
+    url = "https://export.arxiv.org/api/query?id_list=" + urllib.parse.quote(aid)
+    for attempt in range(4):
+        try:
+            xml = get(url).decode()
+            break
+        except Exception:
+            if attempt == 3:
+                raise
+            time.sleep(3 * (attempt + 1))
     ent = xml.split("<entry>")[-1]
     title = re.search(r"<title>(.*?)</title>", ent, re.S)
     names = re.findall(r"<name>(.*?)</name>", ent)
